@@ -42,7 +42,8 @@ impl FileInfo {
             }
         };
 
-        fs::copy(&self.input_path, output_file).expect("Cannot copy and rename the file.");
+        fs::copy(&self.input_path, &output_file).expect("Cannot copy and rename the file.");
+        println!("{}", output_file);
     }
 }
 
