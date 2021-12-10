@@ -1,5 +1,8 @@
 [package]
 name = "md5namer"
+description = "A simple command line tool to rename file to md5 digest"
+authors = ["Muhammad Dony Mulya <vveirt@gmail.com>"]
+license = "mit"
 version = "0.1.0"
 edition = "2021"
 
