@@ -10,10 +10,8 @@ struct FileInfo {
 }
 
 impl FileInfo {
-    fn new(mut args: env::Args) -> Self {
-        args.next();
-
-        if let Some(file) = args.next() {
+    fn new(file_path: Option<String>) -> Self {
+        if let Some(file) = file_path {
             let path = Path::new(&file);
 
             Self {
@@ -26,21 +24,26 @@ impl FileInfo {
         }
     }
 
-    fn name_to_hash(&mut self) {
+    fn get_output_file_name(&mut self) -> String {
         let mut buffer = Vec::new();
         self.input_file
             .read_to_end(&mut buffer)
             .expect("Cannot read the file.");
 
         let digest = Md5::digest(&buffer);
-        let output_file = match self.input_path.extension() {
+
+        match self.input_path.extension() {
             Some(extension) => {
                 format!("{:x}.{}", digest, extension.to_str().unwrap())
             }
             None => {
                 format!("{:x}", digest)
             }
-        };
+        }
+    }
+
+    fn rename_to_hash(&mut self) {
+        let output_file = self.get_output_file_name();
 
         fs::copy(&self.input_path, &output_file).expect("Cannot copy and rename the file.");
         println!("{}", output_file);
@@ -48,6 +51,11 @@ impl FileInfo {
 }
 
 fn main() {
-    let mut file = FileInfo::new(env::args());
-    file.name_to_hash();
+    let mut args = env::args();
+    args.next();
+
+    let file_path = args.next();
+
+    let mut file = FileInfo::new(file_path);
+    file.rename_to_hash();
 }
