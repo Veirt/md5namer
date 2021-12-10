@@ -59,3 +59,17 @@ fn main() {
     let mut file = FileInfo::new(file_path);
     file.rename_to_hash();
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_hash_file_name() {
+        const PRE_CALCULATED_FILE_NAME: &str = "b6f56798b93bb8691e595ff95bcd4db8.txt";
+        const FILE: &str = "./data/test.txt";
+
+        let mut file = FileInfo::new(Some(FILE.to_string()));
+        assert_eq!(PRE_CALCULATED_FILE_NAME, file.get_output_file_name());
+    }
+}
