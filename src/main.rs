@@ -16,14 +16,14 @@ impl FileInfo {
         if let Some(file) = args.next() {
             let path = Path::new(&file);
 
-            return Self {
+            Self {
                 input_file: File::open(path).expect("Cannot open the file."),
                 input_path: path.to_path_buf(),
-            };
+            }
         } else {
             eprintln!("Please input a file name.");
             process::exit(1)
-        };
+        }
     }
 
     fn name_to_hash(&mut self) {
