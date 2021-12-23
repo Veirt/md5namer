@@ -3,7 +3,7 @@ name = "md5namer"
 description = "A simple command line tool to rename file to md5 digest"
 authors = ["Muhammad Dony Mulya <vveirt@gmail.com>"]
 repository = "https://github.com/Veirt/md5namer"
-license = "mit"
+license = "MIT"
 version = "0.1.0"
 edition = "2021"
 
